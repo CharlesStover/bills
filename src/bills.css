@@ -1,0 +1,59 @@
+.amount {
+	font-family: "Roboto Mono", monospace;
+	text-align: right;
+}
+
+body {
+	background-color: #202020;
+	color: #F0F0F0;
+	font-family: "Roboto", "Roboto Condensed", "Arial", sans-serif;
+	font-size: 14px;
+	margin: 0;
+	padding: 0;
+}
+
+input[type="number"] {
+	margin-right: 1em;
+	width: 6em;
+}
+
+table {
+	border-spacing: 0;
+	border-width: 0 1px 1px 0;
+	margin: 1em auto;
+}
+
+table,
+td,
+th {
+	border-color: #303030;
+	border-style: solid;
+}
+
+td,
+th {
+	border-width: 1px 0 0 1px;
+	padding: 0.5em 1em;
+}
+
+td.empty {
+	border-width: 0;
+}
+
+td:not(.empty) {
+	background-color: #282828;
+}
+
+th {
+	font-family: sans-serif;
+	text-align: left;
+}
+
+	th:after {
+		content: ":";
+	}
+
+thead td,
+thead th {
+	width: 33.333%;
+}
