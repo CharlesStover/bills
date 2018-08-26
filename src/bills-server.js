@@ -80,7 +80,7 @@ http.createServer((request, response) => {
   else if (/\/bills\.js$/.test(request.url)) {
     response.writeHead(200, {
       'Cache-Control': 'max-age=31536000, public',
-      'Content-Type': 'text/css; charset=utf-8',
+      'Content-Type': 'text/javascript; charset=utf-8',
       'Expires': new Date(Date.now() + 31536000000).toUTCString()
     });
     response.write(
@@ -92,7 +92,7 @@ http.createServer((request, response) => {
   else {
     response.writeHead(404, {
       'Cache-Control': 'max-age=0, no-cache, public',
-      'Content-Type': 'text/text; charset=utf-8',
+      'Content-Type': 'text/plain; charset=utf-8',
       'Expires': new Date().toUTCString()
     })
     response.write('404');
