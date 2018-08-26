@@ -38,7 +38,7 @@ http.createServer((request, response) => {
         paid[post.payer] += post.amount;
         fs.writeFileSync('payments/' + post.payer + '.txt', post.amount + '\n', { flag: 'a' });
         response.writeHead(302, {
-          Location: '/'
+          Location: './'
         });
         response.end();
       });
