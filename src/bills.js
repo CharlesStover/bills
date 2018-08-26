@@ -49,7 +49,7 @@ for (var x = 0; x < payersLength; x++) {
 
   var td = document.createElement('td');
   var form = document.createElement('form');
-  form.setAttribute('action', '/');
+  form.setAttribute('action', './');
   form.setAttribute('method', 'POST');
   var payer = document.createElement('input');
   payer.setAttribute('name', 'payer');
