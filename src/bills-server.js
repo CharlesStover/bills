@@ -16,7 +16,7 @@ for (const payer of payers) {
 http.createServer((request, response) => {
 
   // index.html
-  if (request.url === '/') {
+  if (/\/$/.test(request.url)) {
     if (request.method === 'POST') {
       let body = '';
       request.on('data', data => {
@@ -64,7 +64,7 @@ http.createServer((request, response) => {
   }
 
   // bills.css
-  else if (request.url === '/bills.css') {
+  else if (/\/bills\.css$/.test(request.url)) {
     response.writeHead(200, {
       'Cache-Control': 'max-age=31536000, public',
       'Content-Type': 'text/css; charset=utf-8',
@@ -77,7 +77,7 @@ http.createServer((request, response) => {
   }
 
   // bills.js
-  else if (request.url === '/bills.js') {
+  else if (/\/bills\.js$/.test(request.url)) {
     response.writeHead(200, {
       'Cache-Control': 'max-age=31536000, public',
       'Content-Type': 'text/css; charset=utf-8',
