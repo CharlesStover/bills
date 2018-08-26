@@ -10,29 +10,57 @@ for (const payer of payers) {
   paid[payer] = fs.readFileSync('payments/' + payer + '.txt', { encoding: 'utf8' })
     .trim()
     .split(/\r?\n/)
-    .reduce((total, amount) => total + parseFloat(amount), 0);
+    .reduce((total, amount) => total + parseInt(amount, 10), 0);
 }
 
 http.createServer((request, response) => {
 
   // index.html
   if (request.url === '/') {
-    response.writeHead(200, {
-      'Cache-Control': 'max-age=0, no-cache, public',
-      'Content-Type': 'text/html; charset=utf-8',
-      'Expires': new Date().toUTCString()
-    });
-    response.write(
-      fs.readFileSync('bills.html', { encoding: 'utf8' })
-        .replace(
-          /<script/,
-          '<script type="text/javascript">' +
-          'var payers = ' + JSON.stringify(payers) + '; ' +
-          'var paid = ' + JSON.stringify(paid) + '; ' +
-          '</script>\n<script'
-        )
-    )
-    response.end();
+    if (request.method === 'POST') {
+      let body = '';
+      request.on('data', data => {
+        body += data;
+      });
+      request.on('end', () => {
+        const post = Object.assign(
+          Object.create(null),
+          ...body.split(/&/).map(
+            parameter => {
+              const param = parameter.split(/=/);
+              return {
+                [param[0]]: param[1]
+              };
+            }
+          )
+        );
+        post.amount = Math.round(parseFloat(post.amount) * 100);
+        paid[post.payer] += post.amount;
+        fs.writeFileSync('payments/' + post.payer + '.txt', post.amount + '\n', { flag: 'a' });
+        response.writeHead(302, {
+          Location: '/'
+        });
+        response.end();
+      });
+    }
+    else {
+      response.writeHead(200, {
+        'Cache-Control': 'max-age=0, no-cache, public',
+        'Content-Type': 'text/html; charset=utf-8',
+        'Expires': new Date().toUTCString()
+      });
+      response.write(
+        fs.readFileSync('bills.html', { encoding: 'utf8' })
+          .replace(
+            /<script/,
+            '<script type="text/javascript">' +
+            'var payers = ' + JSON.stringify(payers) + '; ' +
+            'var paid = ' + JSON.stringify(paid) + '; ' +
+            '</script>\n<script'
+          )
+      )
+      response.end();
+    }
   }
 
   // bills.css

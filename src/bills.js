@@ -1,5 +1,4 @@
-var suffix = function(dollars) {
-  var cents = dollars * 100;
+var suffix = function(cents) {
   return (
     cents % 100 ?
       cents % 10 ?
@@ -45,7 +44,7 @@ for (var x = 0; x < payersLength; x++) {
 
   var amount = document.createElement('td');
   amount.className = 'amount';
-  amount.appendChild(document.createTextNode('$' + payerPaid + suffix(payerPaid)));
+  amount.appendChild(document.createTextNode('$' + (payerPaid / 100) + suffix(payerPaid)));
   tr.appendChild(amount);
 
   var td = document.createElement('td');
@@ -74,11 +73,11 @@ for (var x = 0; x < payersLength; x++) {
 }
 
 var tfootTds = document.getElementsByTagName('tfoot').item(0).getElementsByTagName('td');
-tfootTds.item(0).appendChild(document.createTextNode('$' + total.toString()));
+tfootTds.item(0).appendChild(document.createTextNode('$' + (total / 100).toString()));
 var todo = tfootTds.item(1);
 todo.appendChild(document.createTextNode(minPayer1 + ' pays: '));
 var span = document.createElement('span');
 span.className = 'amount';
 var toPay = paid[minPayer2] - paid[minPayer1];
-span.appendChild(document.createTextNode('$' + toPay + suffix(toPay)));
+span.appendChild(document.createTextNode('$' + (toPay / 100) + suffix(toPay)));
 todo.appendChild(span);
