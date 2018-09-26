@@ -1,0 +1,15 @@
+{
+  "display": "standalone",
+  "icons": [
+    {
+      "sizes": "16x16",
+      "src": "https://charlesstover.com/favicon.ico",
+      "type": "image/x-icon"
+    }
+  ],
+  "name": "Bills",
+  "short_name": "Bills",
+  "start_url": "/",
+  "theme_color": "#161616",
+  "background_color": "#202020"
+}
