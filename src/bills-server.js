@@ -89,6 +89,20 @@ http.createServer((request, response) => {
     response.end();
   }
 
+  // manifest.json
+  else if (/\/manifest\.json$/.test(request.url)) {
+    response.writeHead(200, {
+      'Cache-Control': 'max-age=31536000, public',
+      'Content-Type': 'application/json; charset=utf-8',
+      'Expires': new Date(Date.now() + 31536000000).toUTCString()
+    });
+    response.write(
+      fs.readFileSync('manifest.json', { encoding: 'utf8' })
+    );
+    response.end();
+  }
+
+  // 404
   else {
     response.writeHead(404, {
       'Cache-Control': 'max-age=0, no-cache, public',
