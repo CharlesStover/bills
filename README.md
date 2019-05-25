@@ -12,4 +12,4 @@ Inside that same volume, for each paying member, create a file named `THEIR_NAME
 * Docker - containerized application
 * HTML/CSS - graphical user interface
 * Node - logic and file system read/writes
-* PHP - an optional PHP alternative can be found in the `/php` directory
+* PHP - an optional PHP alternative can be found in the `/src-php` directory

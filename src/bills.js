@@ -42,10 +42,12 @@ for (var x = 0; x < payersLength; x++) {
   th.appendChild(document.createTextNode(payers[x]));
   tr.appendChild(th);
 
+  /*
   var amount = document.createElement('td');
   amount.className = 'amount';
   amount.appendChild(document.createTextNode('$' + (payerPaid / 100) + suffix(payerPaid)));
   tr.appendChild(amount);
+  */
 
   var td = document.createElement('td');
   var form = document.createElement('form');
@@ -60,7 +62,7 @@ for (var x = 0; x < payersLength; x++) {
   amount.setAttribute('name', 'amount');
   amount.setAttribute('step', '0.01');
   amount.setAttribute('type', 'number');
-  amount.setAttribute('value', '0.00');
+  amount.setAttribute('value', '');
   form.appendChild(amount);
   var submit = document.createElement('input');
   submit.setAttribute('type', 'submit');
@@ -73,11 +75,15 @@ for (var x = 0; x < payersLength; x++) {
 }
 
 var tfootTds = document.getElementsByTagName('tfoot').item(0).getElementsByTagName('td');
-tfootTds.item(0).appendChild(document.createTextNode('$' + (total / 100).toString()));
-var todo = tfootTds.item(1);
-todo.appendChild(document.createTextNode(minPayer1 + ' pays: '));
+// tfootTds.item(0).appendChild(document.createTextNode('$' + (total / 100).toString()));
+var todo = tfootTds.item(0);
+var paysOwesStr = payers.length === 2 ? ' owes: ' : ' pays: ';
+todo.appendChild(document.createTextNode(minPayer1 + paysOwesStr));
 var span = document.createElement('span');
 span.className = 'amount';
-var toPay = paid[minPayer2] - paid[minPayer1];
-span.appendChild(document.createTextNode('$' + (toPay / 100) + suffix(toPay)));
+var owed = paid[minPayer2] - paid[minPayer1];
+if (payers.length === 2) {
+  owed /= 2;
+}
+span.appendChild(document.createTextNode('$' + (owed / 100) + suffix(owed)));
 todo.appendChild(span);
